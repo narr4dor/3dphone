@@ -12,11 +12,11 @@
 </head>
 <body>
 
-<script type="module">
-  import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.150.0/build/three.module.js';
-  import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.150.0/examples/jsm/loaders/GLTFLoader.js';
-  import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.150.0/examples/jsm/controls/OrbitControls.js';
+<script src="js/three.min.js"></script>
+<script src="js/GLTFLoader.js"></script>
+<script src="js/OrbitControls.js"></script>
 
+<script>
   const scene = new THREE.Scene();
 
   const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
@@ -33,16 +33,16 @@
   directionalLight.position.set(5, 10, 7);
   scene.add(directionalLight);
 
-  const controls = new OrbitControls(camera, renderer.domElement);
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.dampingFactor = 0.05;
 
-  const loader = new GLTFLoader();
-  loader.load('scene.gltf', (gltf) => {
+  const loader = new THREE.GLTFLoader();
+  loader.load('scene.gltf', function(gltf) {
     const model = gltf.scene;
     model.scale.set(5, 5, 5);
     scene.add(model);
-  }, undefined, (error) => {
+  }, undefined, function(error) {
     console.error('Erro ao carregar modelo:', error);
   });
 
@@ -58,7 +58,6 @@
     renderer.render(scene, camera);
   }
   animate();
-
 </script>
 
 </body>
